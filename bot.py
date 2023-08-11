@@ -11,7 +11,7 @@ from pyrogram import Client, __version__
 from pyrogram.raw.all import layer
 from database.ia_filterdb import Media
 from database.users_chats_db import db
-from info import SESSION, API_ID, API_HASH, BOT_TOKEN, LOG_STR
+from info import SESSION, API_ID, API_HASH, BOT_TOKEN, LOG_STR, CHANNEL_ONE, CHANNEL_TWO
 from utils import temp
 from typing import Union, Optional, AsyncGenerator
 from pyrogram import types
@@ -44,6 +44,20 @@ class Bot(Client):
         temp.U_NAME = me.username
         temp.B_NAME = me.first_name
         self.username = '@' + me.username
+        if CHANNEL_ONE:
+            try:
+                link_a = (await self.create_chat_invite_link(chat_id=CHANNEL_ONE, creates_join_request=True)).invite_link 
+                self.link_one = link_a                                     
+            except Exception as a:
+                logging.info(f"Please Double check the CHANNEL_ONE value and Make sure Bot is Admin in channel with Invite Users via Link Permission, Current Force Sub Channel Value: {CHANNEL_ONE}")
+                sys.exit()
+        if CHANNEL_TWO:
+            try:
+                link_b = (await self.create_chat_invite_link(chat_id=CHANNEL_TWO, creates_join_request=True)).invite_link 
+                self.link_two = link_b                                  
+            except Exception as b:
+                logging.info(f"Please Double check the CHANNEL_TWO value and Make sure Bot is Admin in channel with Invite Users via Link Permission, Current Force Sub Channel Value: {CHANNEL_TWO}")
+                sys.exit()
         app = web.AppRunner(await web_server())
         await app.setup()
         bind_address = "0.0.0.0"
