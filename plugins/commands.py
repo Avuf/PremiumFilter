@@ -72,20 +72,21 @@ async def start(client, message):
             parse_mode=enums.ParseMode.HTML
         )
         return
-    if AUTH_CHANNEL and not await is_subscribed(client, message):
+    if client.link_one is not None and not await is_requested_one(message):
+        btn = [[
+            InlineKeyboardButton(
+                "🎗 Rᴇǫᴜᴇꜱᴛ Tᴏ Jᴏɪɴ Cʜᴀɴɴᴇʟ 1 🎗", url=client.link_one)
+        ]]
         try:
-            invite_link = await client.create_chat_invite_link(int(AUTH_CHANNEL))
-        except ChatAdminRequired:
-            logger.error("Make sure Bot is admin in Forcesub channel")
-            return
-        btn = [
-            [
-                InlineKeyboardButton(
-                    "🤖 Jᴏɪɴ Uᴩᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ 😜", url=invite_link.invite_link
+            if client.link_two is not None and not await is_requested_two(message):
+                btn.append(
+                      [
+                    InlineKeyboardButton(
+                        "🎗 Rᴇǫᴜᴇꜱᴛ Tᴏ Jᴏɪɴ Cʜᴀɴɴᴇʟ 2 🎗", url=client.link_two)
+                      ]
                 )
-            ]
-        ]
-
+        except Exception as e:
+            print(e)
         if message.command[1] != "subscribe":
             try:
                 kk, file_id = message.command[1].split("_", 1)
@@ -100,6 +101,37 @@ async def start(client, message):
             parse_mode=enums.ParseMode.MARKDOWN
             )
         return
+        
+        if client.link_two is not None and not await is_requested_two(message):
+            btn = [[
+                InlineKeyboardButton(
+                    "🎗 Rᴇǫᴜᴇꜱᴛ Tᴏ Jᴏɪɴ Cʜᴀɴɴᴇʟ 1 🎗", url=client.link_two)
+            ]]
+            try:
+                if client.link_one is not None and not await is_requested_one(message):
+                    btn.append(
+                          [
+                        InlineKeyboardButton(
+                            "🎗 Rᴇǫᴜᴇꜱᴛ Tᴏ Jᴏɪɴ Cʜᴀɴɴᴇʟ 2", url=client.link_one)
+                          ]
+                    )
+            except Exception as e:
+                print(e)
+            if message.command[1] != "subscribe":
+            try:
+                kk, file_id = message.command[1].split("_", 1)
+                pre = 'checksubp' if kk == 'filep' else 'checksub' 
+                btn.append([InlineKeyboardButton(" 🔄 Tʀʏ Aɢᴀɪɴ 🔄", callback_data=f"{pre}#{file_id}")])
+            except (IndexError, ValueError):
+                btn.append([InlineKeyboardButton(" 🔄 Tʀʏ Aɢᴀɪɴ 🔄", url=f"https://t.me/{temp.U_NAME}?start={message.command[1]}")])
+        await client.send_message(
+            chat_id=message.from_user.id,
+            text="**Please Join My Updates Channel to use this Bot!**",
+            reply_markup=InlineKeyboardMarkup(btn),
+            parse_mode=enums.ParseMode.MARKDOWN
+            )
+        return
+        
     if len(message.command) == 2 and message.command[1] in ["subscribe", "error", "okay", "help"]:
         buttons = [[
             InlineKeyboardButton('➕ Aᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Gʀᴏᴜᴘ ➕', url=f"https://t.me/{temp.U_NAME}?startgroup=true")
