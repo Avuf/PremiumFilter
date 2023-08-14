@@ -19,6 +19,7 @@ from database.users_chats_db import db
 from bs4 import BeautifulSoup
 import requests
 import aiohttp
+from info import ADMINS
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -45,6 +46,23 @@ class temp(object):
     U_NAME = None
     B_NAME = None
     SETTINGS = {}
+
+
+async def is_requested_one(message):
+    user = await db.get_req_one(message.from_user.id)
+    if user:
+        return True
+    if message.from_user.id in ADMINS:
+        return True
+    return False
+    
+async def is_requested_two(message)
+    user = await db.get_req_two(message.from_user.id)
+    if user:
+        return True
+    if message.from_user.id in ADMINS:
+        return True
+    return False
 
 async def is_subscribed(bot, query):
     try:
