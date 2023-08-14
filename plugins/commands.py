@@ -72,13 +72,13 @@ async def start(client, message):
             parse_mode=enums.ParseMode.HTML
         )
         return
-    if client.link_one is not None and not await is_requested_one(message):
+    if client.link_one is not None and not await is_requested_one(client, message):
         btn = [[
             InlineKeyboardButton(
                 "🎗 Rᴇǫᴜᴇꜱᴛ Tᴏ Jᴏɪɴ Cʜᴀɴɴᴇʟ 1 🎗", url=client.link_one)
         ]]
         try:
-            if client.link_two is not None and not await is_requested_two(message):
+            if client.link_two is not None and not await is_requested_two(client, message):
                 btn.append(
                       [
                     InlineKeyboardButton(
@@ -102,13 +102,13 @@ async def start(client, message):
             )
         return
         
-    if client.link_two is not None and not await is_requested_two(message):
+    if client.link_two is not None and not await is_requested_two(client, message):
         btn = [[
             InlineKeyboardButton(
                 "🎗 Rᴇǫᴜᴇꜱᴛ Tᴏ Jᴏɪɴ Cʜᴀɴɴᴇʟ 1 🎗", url=client.link_two)
         ]]
         try:
-            if client.link_one is not None and not await is_requested_one(message):
+            if client.link_one is not None and not await is_requested_one(client, message):
                 btn.append(
                       [
                     InlineKeyboardButton(
