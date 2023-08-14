@@ -160,10 +160,10 @@ class Database:
         except:
             pass
 
-    async def get_req_one(user_id):
+    async def get_req_one(self, user_id):
         return self.req_one.find_one({"user_id": int(user_id)})
 
-    async def get_req_two(user_id):
+    async def get_req_two(self, user_id):
         return self.req_two.find_one({"user_id": int(user_id)})
 
     async def delete_all_one(self):
