@@ -9,6 +9,8 @@ class Database:
         self.db = self._client[database_name]
         self.col = self.db.users
         self.grp = self.db.groups
+        self.req_one = self.db.reqs_a
+        self.req_two = self.db.reqs_b
 
 
     def new_user(self, id, name):
@@ -142,5 +144,32 @@ class Database:
     async def get_db_size(self):
         return (await self.db.command("dbstats"))['dataSize']
 
+    async def add_req_one(user_id):
+        try:
+            if not await get_req_one(user_id):
+                await self.req_one.insert_one({"user_id": int(user_id)})
+                return
+        except:
+            pass
+        
+    async def add_req_two(user_id):
+        try:
+            if not await get_req_two(user_id):
+                await self.req_two.insert_one({"user_id": int(user_id)})
+                return
+        except:
+            pass
 
+    async def get_req_one(user_id):
+        return self.req_one.find_one({"user_id": int(user_id)})
+
+    async def get_req_two(user_id):
+        return self.req_two.find_one({"user_id": int(user_id)})
+
+    async def delete_all_one(self):
+        self.req_one.delete_many({})
+
+    async def delete_all_two(self):
+        self.req_two.delete_many({})
+    
 db = Database(DATABASE_URI, DATABASE_NAME)
