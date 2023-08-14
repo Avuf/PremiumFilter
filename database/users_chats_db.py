@@ -146,7 +146,7 @@ class Database:
 
     async def add_req_one(self, user_id):
         try:
-            if not await get_req_one(user_id):
+            if not await get_req_one(int(user_id)):
                 await self.req_one.insert_one({"user_id": int(user_id)})
                 return
         except:
@@ -154,7 +154,7 @@ class Database:
         
     async def add_req_two(self, user_id):
         try:
-            if not await get_req_two(user_id):
+            if not await get_req_two(int(user_id)):
                 await self.req_two.insert_one({"user_id": int(user_id)})
                 return
         except:
