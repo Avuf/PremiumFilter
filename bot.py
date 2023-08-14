@@ -62,10 +62,10 @@ class Bot(Client):
             except Exception as b:
                 logging.info(f"Please Double check the CHANNEL_TWO value and Make sure Bot is Admin in channel with Invite Users via Link Permission, Current Force Sub Channel Value: {CHANNEL_TWO}")
                 sys.exit()
-        # app = web.AppRunner(await web_server())
-        # await app.setup()
-        # bind_address = "0.0.0.0"
-      #   await web.TCPSite(app, bind_address, PORT).start()
+        app = web.AppRunner(await web_server())
+        await app.setup()
+        bind_address = "0.0.0.0"
+        await web.TCPSite(app, bind_address, PORT).start()
         logging.info(f"{me.first_name} with for Pyrogram v{__version__} (Layer {layer}) started on {me.username}.")
         logging.info(LOG_STR)
 
