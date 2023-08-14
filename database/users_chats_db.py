@@ -144,7 +144,7 @@ class Database:
     async def get_db_size(self):
         return (await self.db.command("dbstats"))['dataSize']
 
-    async def add_req_one(user_id):
+    async def add_req_one(self, user_id):
         try:
             if not await get_req_one(user_id):
                 await self.req_one.insert_one({"user_id": int(user_id)})
@@ -152,7 +152,7 @@ class Database:
         except:
             pass
         
-    async def add_req_two(user_id):
+    async def add_req_two(self, user_id):
         try:
             if not await get_req_two(user_id):
                 await self.req_two.insert_one({"user_id": int(user_id)})
@@ -160,10 +160,10 @@ class Database:
         except:
             pass
 
-    async def get_req_one(user_id):
+    async def get_req_one(self, user_id):
         return self.req_one.find_one({"user_id": int(user_id)})
 
-    async def get_req_two(user_id):
+    async def get_req_two(self, user_id):
         return self.req_two.find_one({"user_id": int(user_id)})
 
     async def delete_all_one(self):
