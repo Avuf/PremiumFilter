@@ -47,14 +47,16 @@ class Bot(Client):
         if CHANNEL_ONE:
             try:
                 link_a = (await self.create_chat_invite_link(chat_id=CHANNEL_ONE, creates_join_request=True)).invite_link 
-                self.link_one = link_a                                     
+                self.link_one = link_a 
+                print("channel one🔥")
             except Exception as a:
                 logging.info(f"Please Double check the CHANNEL_ONE value and Make sure Bot is Admin in channel with Invite Users via Link Permission, Current Force Sub Channel Value: {CHANNEL_ONE}")
                 sys.exit()
         if CHANNEL_TWO:
             try:
                 link_b = (await self.create_chat_invite_link(chat_id=CHANNEL_TWO, creates_join_request=True)).invite_link 
-                self.link_two = link_b                                  
+                self.link_two = link_b
+                print("channel two 🔥")
             except Exception as b:
                 logging.info(f"Please Double check the CHANNEL_TWO value and Make sure Bot is Admin in channel with Invite Users via Link Permission, Current Force Sub Channel Value: {CHANNEL_TWO}")
                 sys.exit()
