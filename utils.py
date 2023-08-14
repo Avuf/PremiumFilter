@@ -48,16 +48,16 @@ class temp(object):
     SETTINGS = {}
 
 
-async def is_requested_one(message):
-    user = await db.get_req_one(message.from_user.id)
+async def is_requested_one(self , message):
+    user = await db.get_req_one(self, message.from_user.id)
     if user:
         return True
     if message.from_user.id in ADMINS:
         return True
     return False
     
-async def is_requested_two(message):
-    user = await db.get_req_two(message.from_user.id)
+async def is_requested_two(self, message):
+    user = await db.get_req_two(self, message.from_user.id)
     if user:
         return True
     if message.from_user.id in ADMINS:
