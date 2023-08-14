@@ -56,7 +56,7 @@ async def is_requested_one(message):
         return True
     return False
     
-async def is_requested_two(message)
+async def is_requested_two(message):
     user = await db.get_req_two(message.from_user.id)
     if user:
         return True
