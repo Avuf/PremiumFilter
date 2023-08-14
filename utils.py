@@ -50,7 +50,7 @@ class temp(object):
 
 async def is_requested_one(self , message):
     user = await db.get_req_one(message.from_user.id)
-    if user:
+    if user not None:
         return True
     if message.from_user.id in ADMINS:
         return True
@@ -58,7 +58,7 @@ async def is_requested_one(self , message):
     
 async def is_requested_two(self, message):
     user = await db.get_req_two(message.from_user.id)
-    if user:
+    if user not None:
         return True
     if message.from_user.id in ADMINS:
         return True
