@@ -270,3 +270,16 @@ async def list_chats(bot, message):
         with open('chats.txt', 'w+') as outfile:
             outfile.write(out)
         await message.reply_document('chats.txt', caption="List Of Chats")
+
+@Client.on_message(filters.command('purge_one') & filters.private & filters.user(ADMINS))
+async def purge_req_one(bot, message):
+    r = await message.reply("`processing...`")
+    await db.delete_all_one()
+    await r.edit("**Req db Cleared**" )
+
+
+@Client.on_message(filters.command('purge_two') & filters.private & filters.user(ADMINS))
+async def purge_req_two(bot, message):
+    r = await message.reply("`processing...`")
+    await db.delete_all_two()
+    await r.edit("**Req db Cleared**" )
