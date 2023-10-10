@@ -23,7 +23,7 @@ PICS = (environ.get('PICS', 'https://telegra.ph/file/7e56d907542396289fee4.jpg h
 
 #request channel
 CHANNEL_ONE = int(environ.get("CHANNEL_ONE", "-1001840623665"))
-CHANNEL_TWO = int(environ.get("CHANNEL_TWO", "-1001536012841"))
+CHANNEL_TWO = int(environ.get("CHANNEL_TWO"  "-1001919878635"))
 
 # Admins, Channels & Users
 ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '1891736799').split()]
